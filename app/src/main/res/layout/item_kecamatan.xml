@@ -97,6 +97,7 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/itemKec_lat"
                                 android:text="Latitude"
+                                android:maxLines="2"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"/>
                         </TableRow>
@@ -117,6 +118,7 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/itemKec_lng"
                                 android:text="Longitude"
+                                android:maxLines="2"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"/>
                         </TableRow>
