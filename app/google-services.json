@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "258071799309",
+    "firebase_url": "https://sig-bencana-baubau-d1b4d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sig-bencana-baubau-d1b4d",
+    "storage_bucket": "sig-bencana-baubau-d1b4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258071799309:android:c9f395e218f3bc1ba2d744",
+        "android_client_info": {
+          "package_name": "com.sig.baubau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258071799309-j04dke3hdci4cjeeq46039cq5t3btr8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQq7Yi0oXy_z487YjVHpi1d80LeEPWDJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258071799309-j04dke3hdci4cjeeq46039cq5t3btr8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

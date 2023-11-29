@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/sp"
+    android:focusableInTouchMode="true"
+    tools:context=".UI.TambahBanjir">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textAlignment="center"
+                style="@style/viewParent.headerText.NoMode"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/whiteTextColor"
+                android:text="TAMBAH DATA\nBANJIR"/>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:cardBackgroundColor="@color/whiteTextColor"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:layout_marginTop="15dp"
+                        android:id="@+id/banjir_kode"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edit"
+                        android:minHeight="35dp"
+                        android:textAlignment="textStart"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent"
+                        android:visibility="gone"
+                        android:layout_marginTop="10dp">
+                        <EditText
+                            android:id="@+id/banjir_nama"
+                            style="@style/modEditText"
+                            android:hint="Nama Kelurahan"
+                            android:textSize="16sp"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent"
+                        android:layout_marginTop="10dp">
+                        <EditText
+                            android:id="@+id/banjir_tinggi"
+                            style="@style/modEditText"
+                            android:hint="Indeks Ancaman Tinggi"
+                            android:textSize="16sp"
+                            android:inputType="numberDecimal"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent">
+                        <EditText
+                            android:id="@+id/banjir_sedang"
+                            style="@style/modEditText"
+                            android:hint="Indeks Ancaman Sedang"
+                            android:textSize="16sp"
+                            android:inputType="numberDecimal"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent">
+                        <EditText
+                            android:id="@+id/banjir_rendah"
+                            style="@style/modEditText"
+                            android:hint="Indeks Ancaman Rendah"
+                            android:textSize="16sp"
+                            android:inputType="numberDecimal"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent">
+                        <EditText
+                            android:id="@+id/banjir_tidak"
+                            style="@style/modEditText"
+                            android:hint="Indeks Ancaman Tidak Berpotensi"
+                            android:textSize="16sp"
+                            android:inputType="numberDecimal"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/_14sdp"
+                        android:paddingBottom="@dimen/_14sdp"
+                        android:gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/banjir_simpan"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:text="SIMPAN"
+                            android:textColor="#ffffff"
+                            android:background="@drawable/btn_signout_bg3"
+                            android:layout_marginRight="10dp"/>
+
+                        <Button
+                            android:id="@+id/banjir_batal"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:text="BATAL"
+                            android:textColor="#ffffff"
+                            android:background="@drawable/btn_signout_bg2"
+                            android:layout_marginLeft="10dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

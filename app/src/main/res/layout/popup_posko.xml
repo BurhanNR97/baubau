@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativePosko"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_popup"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/posko_info"
+                android:textAlignment="center"
+                style="@style/viewParent.headerText.NoMode"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/whiteTextColor"
+                android:text="DATA POSKO"/>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:cardBackgroundColor="@color/whiteTextColor"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent"
+                        android:layout_marginTop="10dp">
+                        <EditText
+                            android:id="@+id/posko_kode"
+                            style="@style/modEditText"
+                            android:hint="Kode Posko"
+                            android:textSize="16sp"
+                            android:focusable="false"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent">
+                        <EditText
+                            android:id="@+id/posko_nama"
+                            style="@style/modEditText"
+                            android:hint="Nama Posko"
+                            android:textSize="16sp"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        
+                        <ImageView
+                            android:id="@+id/posko_map"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_map"/>
+                        
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/parent">
+                                <EditText
+                                    android:id="@+id/posko_lat"
+                                    style="@style/modEditText"
+                                    android:hint="Latitude"
+                                    android:textSize="16sp"
+                                    android:inputType="numberDecimal|numberSigned"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/parent">
+                                <EditText
+                                    android:id="@+id/posko_lng"
+                                    style="@style/modEditText"
+                                    android:hint="Longitude"
+                                    android:textSize="16sp"
+                                    android:inputType="numberDecimal|numberSigned"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/_14sdp"
+                        android:paddingBottom="@dimen/_14sdp"
+                        android:gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/posko_simpan"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:text="SIMPAN"
+                            android:textColor="#ffffff"
+                            android:background="@drawable/btn_signout_bg3"
+                            android:layout_marginRight="10dp"/>
+
+                        <Button
+                            android:id="@+id/posko_hapus"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:text="HAPUS"
+                            android:textColor="#ffffff"
+                            android:background="@drawable/btn_signout_bg"/>
+
+                        <Button
+                            android:id="@+id/posko_batal"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:text="BATAL"
+                            android:textColor="#ffffff"
+                            android:background="@drawable/btn_signout_bg2"
+                            android:layout_marginLeft="10dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

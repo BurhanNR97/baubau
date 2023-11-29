@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:checked="true"
+        android:id="@+id/tabpetaBanjir"
+        android:icon="@drawable/ic_banji"
+        android:title="Bencana Alam" />
+
+    <item
+        android:id="@+id/tabpetaPosko"
+        android:icon="@drawable/ic_posko"
+        android:title="Posko Pengungsian" />
+
+</menu>

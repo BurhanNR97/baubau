@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutDialogContainerInfo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDialogInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_bg"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/textTitleInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_dialog"
+            android:padding="10dp"
+            android:text="INFORMASI"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTitleInfo">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/txtTanyaInfo"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:text="Kota Baubau merupakan daerah yang rawan terhadap bencana, baik bencana alam maupun non alam. Karakteristik fisik kota Baubau mempunyai bentuk bervariasi yang tidak lepas dari proses pembentukannya. Sebagaimana layaknya kepulauan, pengaruh kondisi alamnya dan iklim serta adanya keanekaragaman penduduk dan budaya lokal menyebabkan timbulnya risiko terjadinya bencana alam, bencana karena ulah manusia dan kedaruratan kompleks, meskipun disisi lain juga memiliki kekayaan sumberdaya alam.
+Kondisi iklim tropis Kota Baubau yang terletak antara 5°21’- 5°30’ LS dan antara 122°30’ - 122°45’ BT menjadikan Kota Baubau sebagai kawasan rawan terhadap bencana. Dampak dari bahaya iklim tersebut adalah banjir. Saat ini pemerintahan Kota Baubau belum mempunyai sistem informasi yang menyediakan informasi bagi masyarakat tentang wilayah-wilayah yang rawan akan bencana alam di wilayah Kota Baubau. Hal tersebut menjadi kendala bagi masyarakat untuk dapat memperoleh informasi tentang wilayah-wilayah rawan bencana alam yang berada di sekitaran Kota Baubau"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="14dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/layoutDialogInfo"
+        app:layout_constraintTop_toBottomOf="@id/layoutDialogInfo">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnOK"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_signout_bg1"
+            android:textColor="#ffffffff"
+            android:text="OK"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

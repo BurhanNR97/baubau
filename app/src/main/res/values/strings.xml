@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Bencana Alam Bau Bau</string>
+    <string name="halaman_login">HALAMAN LOGIN</string>
+    <string name="gambar_kota_baubau">Gambar Kota Baubau</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tentang_aplikasi">Sistem Informasi Geografis (SIG) pemetaan wilayah bencana alam Kota Baubau\n\nAplikasi ini dirancang untuk masyarakat umum untuk dapat mengetahui lokasi rawan bencana kota baubau</string>
+    <string name="info">Kota Baubau adalah sebuah kota di Pulau Buton, Sulawesi Tenggara, Indonesia. Baubau memperoleh status kota pada tanggal 21 Juni 2001 berdasarkan UU No. 13 Tahun 2001. Luas kota ini 295,072 km² dengan jumlah penduduk 167.519 jiwa (2018).\n\nSecara geografis terletak di bagian selatan garis khatulistiwa di antara 5.21° – 5.33° Lintang Selatan dan di antara 122.30° – 122.47° Bujur Timur atau terletak di sebelah Selatan Provinsi Sulawesi Tenggara.</string>
+    <string name="judul_skripsi">PEMETAAN WILAYAH BENCANA ALAM KOTA BAUBAU MENGGUNAKAN METODE K-MEDOIDS</string>
+    <string name="banjir_longsor"><![CDATA[Banjir & Longsor]]></string>
+    <string name="judul_awal">Pemetaan Wilayah Bencana Alam\nKota Baubau</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="title_activity_map_tambah_kec">MapTambahKec</string>
+    <string name="title_activity_pemetaan">Pemetaan</string>
+    <string name="title_activity_posko">Posko</string>
+    <string name="title_activity_map_tambah_posko">MapTambahPosko</string>
+</resources>
