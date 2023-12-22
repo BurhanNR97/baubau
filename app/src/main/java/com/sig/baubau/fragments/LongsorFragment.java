@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,9 +57,11 @@ public class LongsorFragment extends Fragment {
     private static final List<PatternItem> PATTERN_ITEMS = Arrays.asList(DOT, DASH);
     ArrayList<Double> costs = new ArrayList<>();
     Polygon wilaya = null;
+    Marker markers;
     private DatabaseReference db;
     View viewLayout;
     private modelLongsor model;
+    FloatingActionButton fab;
     private ArrayList<modelLongsor> list;
     private ArrayList<String> longitude = new ArrayList<>();
     private ArrayList<String> kecamatan = new ArrayList<>();
@@ -74,146 +77,22 @@ public class LongsorFragment extends Fragment {
 
         @Override
         public void onMapReady(GoogleMap gM) {
-            gMap = gM;
             googleMap = gM;
-            LatLng kota = new LatLng(-5.434039, 122.667554);
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(kota));
-            CameraPosition position = CameraPosition.builder()
-                    .target(kota)
-                    .zoom(11.3f)
-                    .build();
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), null);
+            gMap = gM;
 
-            db = FirebaseDatabase.getInstance().getReference("longsor");
-            list = new ArrayList<>();
+            mapON();
 
-            ArrayList<modelLongsor> pusat1 = new ArrayList<>();
-            ArrayList<modelLongsor> pusat2 = new ArrayList<>();
-
-            final ArrayList<String>[] stepOne = new ArrayList[]{new ArrayList<>()};
-            final ArrayList<String>[] stepTwo = new ArrayList[]{new ArrayList<>()};
-
-            db.addValueEventListener(new ValueEventListener() {
+            fab = viewLayout.findViewById(R.id.fabLongsor);
+            fab.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    list.clear();
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        model = new modelLongsor();
-                        model.setTidak(Double.parseDouble(ds.child("tidak").getValue().toString()));
-                        model.setRendah(Double.parseDouble(ds.child("rendah").getValue().toString()));
-                        model.setSedang(Double.parseDouble(ds.child("sedang").getValue().toString()));
-                        model.setKode(ds.getKey());
-                        list.add(model);
+                public void onClick(View view) {
+                    mapON();
+                    if (markerList.size() > 0) {
+                        markerList.clear();
+                        gMap.clear();
+                    } else {
+                        viewMarkers();
                     }
-
-                    pusat2.add(list.get(7));
-                    pusat2.add(list.get(9));
-                    pusat2.add(list.get(36));
-
-                    pusat1.add(list.get(9));
-                    pusat1.add(list.get(33));
-                    pusat1.add(list.get(34));
-
-                    stepOne[0] = manhattan(pusat1);
-                    stepTwo[0] = manhattan(pusat2);
-
-                    double costLama = costs.get(0);
-                    double costBaru = costs.get(1);
-
-                    if (costBaru > costLama) {
-                        hasil = stepTwo[0];
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("kel");
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    kelurahan.clear();
-                    kode.clear();
-                    longitude.clear();
-                    latitude.clear();
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        kode.add(ds.getKey());
-                        kelurahan.add(ds.child("nama").getValue().toString());
-                        latitude.add(ds.child("lat").getValue().toString());
-                        longitude.add(ds.child("lng").getValue().toString());
-                    }
-
-                    if (hasil.size() > 0) {
-                        for (int i=0; i<latitude.size(); i++) {
-                            String[] lat1 = latitude.get(i).split(",");
-                            String[] lng1 = longitude.get(i).split(",");
-                            ArrayList<LatLng> latLngs = new ArrayList<>();
-                            for (int j=0; j<lat1.length; j++) {
-                                latLngs.add(new LatLng(Double.parseDouble(lat1[j]), Double.parseDouble(lng1[j])));
-                            }
-
-                            PolygonOptions options = new PolygonOptions().clickable(true).addAll(latLngs);
-                            if (hasil.get(i).trim().equals("Aman")) {
-                                options.fillColor(Color.parseColor("#40FFFFFF"));
-                            } else
-                            if (hasil.get(i).trim().equals("Rendah")) {
-                                options.fillColor(Color.parseColor("#4000FF00"));
-                            } else
-                            if (hasil.get(i).trim().equals("Sedang")) {
-                                options.fillColor(Color.parseColor("#40FFFF00"));
-                            }
-                            options.strokeWidth(0);
-                            Polygon pol = googleMap.addPolygon(options);
-                            pol.setTag(indeksAncaman(hasil.get(i)) + "\n" +
-                                    kode.get(i) + "\n" + kelurahan.get(i) + "\n" +
-                                    namaKec(kode.get(i).substring(0, 6)));
-                            wilayahKec(googleMap);
-                            googleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
-                                @Override
-                                public void onPolygonClick(@NonNull Polygon polygon) {
-                                    if (wilaya != null) {
-                                        wilaya.setStrokeWidth(0);
-                                        wilaya.setStrokePattern(null);
-                                    }
-                                    wilaya = polygon;
-                                    wilaya.setStrokeWidth(3);
-                                    wilaya.setStrokePattern(PATTERN_ITEMS);
-                                    String[] getTAG = wilaya.getTag().toString().split("\n");
-                                    showBottom(getTAG[1], getTAG[2], getTAG[3], getTAG[0]);
-                                }
-                            });
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            DatabaseReference dbPosko = FirebaseDatabase.getInstance().getReference("posko");
-            dbPosko.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    markerList.clear();
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        modelPosko model = ds.getValue(modelPosko.class);
-                        double lat = Double.parseDouble(model.getLat());
-                        double lng = Double.parseDouble(model.getLng());
-                        Marker marker = gMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.camp)));
-                        marker.setTag(model.getKode() + "\n" + model.getNama());
-                        markerList.add(marker);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
 
@@ -227,9 +106,156 @@ public class LongsorFragment extends Fragment {
         }
     };
 
+    private void mapON() {
+        LatLng kota = new LatLng(-5.434039, 122.667554);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(kota));
+        CameraPosition position = CameraPosition.builder()
+                .target(kota)
+                .zoom(11.3f)
+                .build();
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), null);
+
+        db = FirebaseDatabase.getInstance().getReference("longsor");
+        list = new ArrayList<>();
+
+        ArrayList<modelLongsor> pusat1 = new ArrayList<>();
+        ArrayList<modelLongsor> pusat2 = new ArrayList<>();
+
+        final ArrayList<String>[] stepOne = new ArrayList[]{new ArrayList<>()};
+        final ArrayList<String>[] stepTwo = new ArrayList[]{new ArrayList<>()};
+
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    model = new modelLongsor();
+                    model.setTidak(Double.parseDouble(ds.child("tidak").getValue().toString()));
+                    model.setRendah(Double.parseDouble(ds.child("rendah").getValue().toString()));
+                    model.setSedang(Double.parseDouble(ds.child("sedang").getValue().toString()));
+                    model.setKode(ds.getKey());
+                    list.add(model);
+                }
+
+                pusat2.add(list.get(7));
+                pusat2.add(list.get(9));
+                pusat2.add(list.get(36));
+
+                pusat1.add(list.get(9));
+                pusat1.add(list.get(33));
+                pusat1.add(list.get(34));
+
+                stepOne[0] = manhattan(pusat1);
+                stepTwo[0] = manhattan(pusat2);
+
+                double costLama = costs.get(0);
+                double costBaru = costs.get(1);
+
+                if (costBaru > costLama) {
+                    hasil = stepTwo[0];
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("kel");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                kelurahan.clear();
+                kode.clear();
+                longitude.clear();
+                latitude.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    kode.add(ds.getKey());
+                    kelurahan.add(ds.child("nama").getValue().toString());
+                    latitude.add(ds.child("lat").getValue().toString());
+                    longitude.add(ds.child("lng").getValue().toString());
+                }
+
+                if (hasil.size() > 0) {
+                    for (int i=0; i<latitude.size(); i++) {
+                        String[] lat1 = latitude.get(i).split(",");
+                        String[] lng1 = longitude.get(i).split(",");
+                        ArrayList<LatLng> latLngs = new ArrayList<>();
+                        for (int j=0; j<lat1.length; j++) {
+                            latLngs.add(new LatLng(Double.parseDouble(lat1[j]), Double.parseDouble(lng1[j])));
+                        }
+
+                        PolygonOptions options = new PolygonOptions().clickable(true).addAll(latLngs);
+                        if (hasil.get(i).trim().equals("Aman")) {
+                            options.fillColor(Color.parseColor("#40FFFFFF"));
+                        } else
+                        if (hasil.get(i).trim().equals("Rendah")) {
+                            options.fillColor(Color.parseColor("#4000FF00"));
+                        } else
+                        if (hasil.get(i).trim().equals("Sedang")) {
+                            options.fillColor(Color.parseColor("#40FFFF00"));
+                        }
+                        options.strokeWidth(0);
+                        Polygon pol = googleMap.addPolygon(options);
+                        pol.setTag(indeksAncaman(hasil.get(i)) + "\n" +
+                                kode.get(i) + "\n" + kelurahan.get(i) + "\n" +
+                                namaKec(kode.get(i).substring(0, 6)));
+                        wilayahKec(googleMap);
+                        googleMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
+                            @Override
+                            public void onPolygonClick(@NonNull Polygon polygon) {
+                                if (wilaya != null) {
+                                    wilaya.setStrokeWidth(0);
+                                    wilaya.setStrokePattern(null);
+                                }
+                                wilaya = polygon;
+                                wilaya.setStrokeWidth(3);
+                                wilaya.setStrokePattern(PATTERN_ITEMS);
+                                String[] getTAG = wilaya.getTag().toString().split("\n");
+                                showBottom(getTAG[1], getTAG[2], getTAG[3], getTAG[0]);
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private String indeksAncaman(String indeks) {
         if (indeks.equals("Aman")) return "Tidak Berpotensi";
         else return "Ancaman " + indeks;
+    }
+
+    private void viewMarkers() {
+        DatabaseReference dbPosko = FirebaseDatabase.getInstance().getReference("posko");
+        dbPosko.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                markerList.clear();
+                int n = 1;
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    modelPosko model = ds.getValue(modelPosko.class);
+                    double lat = Double.parseDouble(model.getLat());
+                    double lng = Double.parseDouble(model.getLng());
+                    markers = gMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.camp)));
+                    markers.setTag(model.getKode() + "\n" + model.getNama());
+                    markerList.add(markers);
+                    n++;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void showBottom(String kode, String kel, String kec, String indeks) {
